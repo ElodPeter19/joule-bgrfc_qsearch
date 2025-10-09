@@ -12,10 +12,12 @@ action_groups:
           Accept: application/json
           # $filter: destination eq '<? inbound_destination ?>'
         result_variable: inbound_destinations
-      - type: message
-        message:
-          type: text
-          content: "Found <? queues.value.length ?> destination: '<? queues ?>'"
+      - type: dialog-function # call to get queues in the destination
+        name: get_queues  
+        parameters:
+          - name: inbound_destination
+            value: <? inbound_destinations.value.toArray() ?>
+      
   - actions:
       - type: api-request
         method: GET
