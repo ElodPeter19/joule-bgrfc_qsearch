@@ -1,0 +1,22 @@
+parameters:
+  - name: inbound_destination
+    optional: true
+
+action_groups:
+  - actions:
+      - type: api-request
+        method: GET
+        system_alias: IBP_QSEARCH
+        path: /sap/opu/odata4/ibp/a_bgrfcq_search/srvd_a2x/ibp/c_bgrfcq_search_srv/0001/xIBPxI_bgrfcqueue_srch
+        headers :
+          Accept: application/json
+          $filter: InboundDestination eq '<? inbound_destination ?>'
+          $groupby: 'InboundDestination'
+          $orderby: 'InboundDestination asc'      
+          $apply: aggregate( destination as NoOFDest)
+        result_variable: inbound_destinations
+      - type: message
+        message:
+          type: text
+          content: Found <? inbound_destinations.d.results.length ?> results for inbound destination '<? inbound_destination ?>'
+      

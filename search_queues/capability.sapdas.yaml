@@ -1,0 +1,12 @@
+schema_version: 3.24.0
+
+metadata:
+  namespace: local
+  name: search_queues
+  version: 1.1.0
+  display_name: search_queues
+  description: This Joule Capability is to search bgRFC queues, messages and payload. It should be possible to search for inbound destination, queue name, message types and message string as well as searching in payload of the RFCs
+
+system_aliases:
+  IBP_QSEARCH:
+    destination: IBP_JOULE
