@@ -2,4 +2,5 @@ schema_version: 1.4.0
 name: z_search_queues
 capabilities:
   - type: local
+    name: search_queue_info
     folder: ./search_queues
