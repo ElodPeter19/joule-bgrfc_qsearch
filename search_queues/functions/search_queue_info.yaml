@@ -10,13 +10,18 @@ action_groups:
         path: /sap/opu/odata4/ibp/a_bgrfcq_search/srvd_a2x/ibp/c_bgrfcq_search_srv/0001/xIBPxI_bgrfcqueue_srch
         headers :
           Accept: application/json
-          $filter: InboundDestination eq '<? inbound_destination ?>'
-          $groupby: 'InboundDestination'
-          $orderby: 'InboundDestination asc'      
-          $apply: aggregate( destination as NoOFDest)
+          $filter: destination eq '<? inbound_destination ?>'
         result_variable: inbound_destinations
       - type: message
         message:
           type: text
-          content: Found <? inbound_destinations.d.results.length ?> results for inbound destination '<? inbound_destination ?>'
-      
+          content: |
+            Distinct inbound destinations and their counts:
+            ${
+              inbound_destinations.d.results
+                .groupBy(r -> r.destination )
+                .entrySet()
+                .stream()
+                .map(e -> e.getKey() + ': ' + e.getValue().size())
+                .collect(joining('\n'))
+            }
