@@ -1,8 +1,0 @@
-description: This scenario is to search bgRFC queue information. Such as queue
-  name, inbound destination or unit ID
-target:
-  name: search_queue_info
-  type: function
-slots:
-  - name: inbound_destination
-    description: Inbound destination to search for

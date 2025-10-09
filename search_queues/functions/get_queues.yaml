@@ -1,0 +1,36 @@
+parameters:
+  - name: inbound_destination
+    optional: false
+
+action_groups:
+  - actions:
+      - type: api-request
+        method: GET
+        system_alias: IBP_QSEARCH
+        path: /sap/opu/odata4/ibp/a_bgrfcq_search/srvd_a2x/ibp/c_bgrfcq_search_srv/0001/xIBPxI_bgrfcqueue_dest?$filter=destination eq '<? inbound_destination ?>'
+        headers :
+          Accept: application/json
+          # $filter: destination eq '<? inbound_destination ?>'
+        result_variable: inbound_destinations
+      - type: message
+        message:
+          type: text
+          content: "Found <? queues.value.length ?> destination: '<? queues ?>'"
+  - actions:
+      - type: api-request
+        method: GET
+        system_alias: IBP_QSEARCH
+        path: /sap/opu/odata4/ibp/a_bgrfcq_search/srvd_a2x/ibp/c_bgrfcq_search_srv/0001/xIBPxI_bgrfcqueue_srch?$filter=destination eq '<? inbound_destination ?>'
+        headers :
+          Accept: application/json
+        result_variable: queues
+      - type: message
+        message:
+          type: text
+          content: |
+            Found <? queues.value.length ?> queues in destination: '<? inbound_destination ?>'
+            The list of queues is: 
+            <? queues.value.![queue_name].join(', ') ?>
+            | Queue Name | Unit ID   | Next Unit ID     |
+            |------------|----------|-------------------|
+            <? queues.value.?[ '| ' + queue_name + ' | ' + unit_id + ' | ' + next_unit_id + ' |' ].join('\n') ?> |

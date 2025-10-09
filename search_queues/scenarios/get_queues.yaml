@@ -1,0 +1,7 @@
+description: This scenario is to get all queues in a given RTI inbound destinations
+target:
+  name: get_queues
+  type: function
+slots:
+  - name: inbound_destination
+    description: RTI inbound destination to search for queues in

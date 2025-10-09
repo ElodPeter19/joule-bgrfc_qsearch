@@ -1,0 +1,7 @@
+description: This scenario is to get all available RTI inbound destinations for bgRFC queues
+target:
+  name: get_destinations
+  type: function
+slots:
+  - name: inbound_destination
+    description: RTI inbound destination to search for queues in
