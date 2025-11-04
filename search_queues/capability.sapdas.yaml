@@ -9,4 +9,4 @@ metadata:
 
 system_aliases:
   IBP_QSEARCH:
-    destination: IBP_NLI_SSO
+    destination: IBP_JOULE
