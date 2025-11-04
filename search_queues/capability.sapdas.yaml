@@ -9,4 +9,4 @@ metadata:
 
 system_aliases:
   IBP_QSEARCH:
-    destination: IBP_JOULE
+    destination: PAB
