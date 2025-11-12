@@ -16,7 +16,7 @@ action_groups:
         name: get_queues  
         parameters:
           - name: inbound_destination
-            value: <? inbound_destinations.value.toArray() ?>
+            value: <? inbound_destinations.value ?>
       
   - actions:
       - type: api-request
@@ -29,10 +29,11 @@ action_groups:
       - type: message
         message:
           type: text
-          content: |
-            Found <? queues.value.length ?> queues in destination: '<? inbound_destination ?>'
-            The list of queues is: 
-            <? queues.value.![queue_name].join(', ') ?>
-            | Queue Name | Unit ID   | Next Unit ID     |
-            |------------|----------|-------------------|
-            <? queues.value.?[ '| ' + queue_name + ' | ' + unit_id + ' | ' + next_unit_id + ' |' ].join('\n') ?> |
+          content: "Found '<? queues ?>'"
+          # |
+          #   Found <? queues.value.length ?> queues in destination: '<? inbound_destination ?>'
+          #   The list of queues is: 
+          #   <? queues.value.![queue_name].join(', ') ?>
+          #   | Queue Name | Unit ID   | Next Unit ID     |
+          #   |------------|----------|-------------------|
+          #   <? queues.value.?[ '| ' + queue_name + ' | ' + unit_id + ' | ' + next_unit_id + ' |' ].join('\n') ?> |

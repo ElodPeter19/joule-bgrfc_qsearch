@@ -14,5 +14,5 @@ action_groups:
       - type: message
         message:
           type: text
-          content: "Found <? inbound_destinations.lenght ?> destination: '<? inbound_destination ?>'"
+          content: "Found: '<? inbound_destination ?>'"
                      
